@@ -1,16 +1,17 @@
-import React from "react";
-
 const VideoTitle = ({ title, overview }) => {
-  return <div className="pl-16">
-    <h1 className="font-bold text-4xl">
-      {title}
-    </h1>
-    <div className="py-4 w-1/2 text-justify">{overview}</div>
-    <div className="m4">
-      <button className="px-4 py-2 mr-2 bg-white border border-gray-300 rounded-md shadow-md hover:bg-gray-100 transition">▶️Play</button>
-      <button className="px-4 py-2 bg-gray-500 bg-opacity-50 text-white border border-gray-400 rounded-md shadow-md hover:bg-opacity-70 transition">ℹMore Info</button>
+  return (
+    <div className="w-screen aspect-video pt-[20%] px-24 absolute text-white bg-gradient-to-r from-black">
+      <h1 className="text-6xl font-bold">{title}</h1>
+      <p className="py-6 text-lg w-1/4">{overview}</p>
+      <div className="">
+        <button className=" bg-white text-black p-4 px-12 text-xl  rounded-lg hover:bg-opacity-80">
+          ▶️ Play
+        </button>
+        <button className="mx-2 bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg">
+          More Info
+        </button>
+      </div>
     </div>
-  </div>
+  );
 };
-
 export default VideoTitle;

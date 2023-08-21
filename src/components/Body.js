@@ -1,24 +1,19 @@
+import { createBrowserRouter } from "react-router-dom";
+import Browse from "./Browse";
+import Login from "./Login";
+import { RouterProvider } from "react-router-dom";
 
-import React, { useEffect } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router'
-import Login from './Login'
-import Browse from './Browse'
-import { useDispatch } from 'react-redux';
-
-export const Body = () => {
-  // The hooks should be in the starting of the page.
-
+const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: '/',
       element: <Login/>
     },
     {
-      path: '/browse',
-      element: <Browse />
-    }
-  ])
-
+      path: "/browse",
+      element: <Browse />,
+    },
+  ]);
 
   return (
     <RouterProvider router={appRouter} />
