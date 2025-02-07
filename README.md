@@ -15,6 +15,31 @@ React router dom:
   -> After that open Body.js and create an appRouter which has a array of objects called inside the createBrowserRouter. 
   -> In the array of objects we have path and elements entries to specify path and element we want to import.
 
+Firebase setup:
+  -> Create a project in firebase console.
+  -> While creating a project you'll be asked to follow some process.
+    -> Install firebase in frontend project. npm i firebase
+    -> Create a file called firebase.js in utils folder and paste the config code there.
+  -> Enable EMail/password authentication in firebase console. If you're facing issue in authentication then try using another browser or clear cache and extensions and try again.
+  -> After that Install Firebase CLI using npm install -g firebase-tools
+    Deploying firebase:
+      firebase login
+      firebase init
+        -> Be careful while selecting options here.
+      firebase deploy
+  -> Setting authentication in our project can be done using th eofficial documentation.https://firebase.google.com/docs/auth/web/password-auth
+
+-> We set our redux store with user object to handle our login.
+
+-> Redux steps:
+  -> Installation: npm i @reduxjs/toolkit and npm i react-redux
+  -> Created appstore.js and used configurestore in it.
+  -> The use of the configurestore is to take a configuration i.e., reducer
+  -> Created a slice
+  -> Used the slice in appstore.js
+  -> Importing the store in to our app.
+
+
 Features: 
   -> Sign in page
     -> login page
