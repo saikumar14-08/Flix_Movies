@@ -10,6 +10,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { LOGIN_BG, AVATAR_URL } from "../utils/constants";
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
@@ -40,9 +41,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse");
-
-          console.log(user);
+          // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -78,11 +77,10 @@ const Login = () => {
           // ...
           updateProfile(auth.currentUser, {
             displayName: fullName.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/52173530?v=4"
+            photoURL: { AVATAR_URL },
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
-              console.log("Profile updated:", auth.currentUser);
               dispatch(
                 addUser({
                   uid: uid,
@@ -107,14 +105,12 @@ const Login = () => {
         });
     }
   };
+
   return (
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/638e9299-0637-42d1-ba39-54ade4cf2bf6/web/US-en-20250203-TRIFECTA-perspective_27777f6b-02df-44af-bd1d-0bd4efdf3345_large.jpg"
-          alt="login form bg"
-        />
+        <img src={LOGIN_BG} alt="login form bg" />
       </div>
 
       <form

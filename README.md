@@ -31,6 +31,35 @@ Firebase setup:
 
 -> We set our redux store with user object to handle our login.
 
+# Redux 
+  -> We use redux to handle state changes effectively in large applications.
+  -> First we create a centralized store which is a Huge object which has the state information. The state has the data in the for of slices.
+  -> To Update the state we follow the below steps:
+    -> After the event fires we will dispatch an action
+    -> This action in turn calls the reducer which is generally a function.
+    -> This reducer updates the store.
+  -> To read the updated state:
+    -> To access the data from the store we have to use selector which is subscribed to the store and this selector updates our store.
+  ======
+  -> First, create a slice for the data
+
+# Handling login/logout routes:
+  -> We have to use useNavigate for handling the routes i.e., loggedIn user should always redirect to /browse page (even after changing the url) and logged out user should always redirect to login page even if we use /browse in url.
+  -> We can't use useNavigate whereever we want it can only be used inside the components of the RouterProvider or its children components.
+  -> In our application, RouterProvider has Login and Browse components. Login has Header as child so we added our logic in Header component.
+  -> We added only in Header component but not in another components because Header component is loaded in all the pages.
+  -> We also have to unsubscribe to the event(Take notes why?)
+  ->
+
+React Strict mode issues:
+  -> Problem: In development mode, React Strict Mode intentionally calls useEffect() twice to detect side effects that are not properly cleaned up.
+  -> Fix: Remove React.StrictMode in index.js (only for debugging).
+
+
+
+
+
+
 -> Redux steps:
   -> Installation: npm i @reduxjs/toolkit and npm i react-redux
   -> Created appstore.js and used configurestore in it.
@@ -38,6 +67,14 @@ Firebase setup:
   -> Created a slice
   -> Used the slice in appstore.js
   -> Importing the store in to our app.
+
+
+
+
+
+
+
+
 
 
 Features: 
