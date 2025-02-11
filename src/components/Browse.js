@@ -28,7 +28,6 @@ const Browse = () => {
 
   useNowPlayingMovies();
 
-  // console.log(movies)
   return (
     <>
       <Header />
