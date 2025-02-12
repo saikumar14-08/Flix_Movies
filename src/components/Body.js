@@ -1,9 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import Browse from "./Browse";
 import Login from "./Login";
-import { RouterProvider } from "react-router-dom";
+// import {  } from "react-router";
 
-const Body = () => {
+export const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: '/',
