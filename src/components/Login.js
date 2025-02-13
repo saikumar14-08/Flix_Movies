@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { validate } from "../utils/validate";
+import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -21,10 +21,8 @@ const Login = () => {
   const fullName = useRef(null);
 
   const handleSignIn = () => {
-    let message = validate(email.current.value, password.current.value);
-    if (email.current.value === "" || password.current.value === "")
-      setErrorMessage("Fields cannot be empty!");
-    else setErrorMessage(message);
+    let message = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(message);
     if (message) return;
     if (isSignInForm) {
       signInWithEmailAndPassword(
@@ -63,7 +61,7 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
-    let message = validate(
+    let message = checkValidData(
       email.current.value,
       password.current.value,
       fullName.current.value
@@ -73,7 +71,7 @@ const Login = () => {
       password.current.value === "" ||
       fullName.current.value === ""
     )
-    setErrorMessage("Fields cannot be empty!");
+      setErrorMessage("Fields cannot be empty!");
     else setErrorMessage(message);
     if (message) return;
     if (!isSignInForm) {
@@ -85,14 +83,38 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+
+          // Updating profile with displayName and photoURL
+          updateProfile(user, {
+            displayName: fullName.current.value,
+            photoURL: USER_AVATAR,
+          })
+            .then(() => {
+              // After profile is updated, dispatching the user data
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
           setErrorMessage(errorCode + " - " + errorMessage);
         });
     }
+  };
+
+  const toggleSignInForm = () => {
+    setIsSignInForm(!isSignInForm);
   };
 
   return (
@@ -109,7 +131,7 @@ const Login = () => {
         <div className=" text-3xl font-bold text-white p-3">
           {isSignInForm ? "Sign in" : "Sign up"}
         </div>
-        {!setErrorMessage && (
+        {!isSignInForm && (
           <input
             className="p-2 m-2 w-full block bg-gray-800 border border-gray-600 rounded"
             type="text"
@@ -137,7 +159,7 @@ const Login = () => {
           {isSignInForm ? "Sign In" : "Sign up"}
         </button>
         <div className="pl-2 py-4">
-          <span className="font-bold cursor-pointer" onClick={handleSignIn}>
+          <span className="font-bold cursor-pointer" onClick={toggleSignInForm}>
             {!isSignInForm
               ? "Already existing user? Sign in now"
               : "New to Netflix? Sign up now"}
