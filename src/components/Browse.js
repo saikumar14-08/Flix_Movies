@@ -4,6 +4,8 @@ import {
   useNowPlayingMovies,
   usePopularMovies,
   useTopRatedMovies,
+  useTopRatedTv,
+  useTrendingTv,
   useUpComingMovies,
 } from "../hooks/useMovies";
 import MainContainer from "./MainContainer";
@@ -14,7 +16,9 @@ const Browse = () => {
   usePopularMovies();
   useTopRatedMovies();
   useUpComingMovies();
-
+  useTrendingTv();
+  useTopRatedTv();
+  
   return (
     <div className="overflow-x-scroll hide-scrollbar">
       <Header />

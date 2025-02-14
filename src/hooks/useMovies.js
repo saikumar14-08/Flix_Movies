@@ -5,7 +5,9 @@ import {
   addNowPlayingMovies,
   addPopularMovies,
   addRatedMovies,
+  addTopRatedTV,
   addTrendingMovies,
+  addTrendingTV,
   addUpComingMovies,
 } from "../utils/moviesSlice";
 
@@ -73,5 +75,38 @@ export const useUpComingMovies = () => {
 
   useEffect(() => {
     upcoming();
+  }, []);
+};
+
+export const useTrendingTv = () => {
+  const dispatch = useDispatch();
+  const trendTv = async () => {
+    let tvData = await fetch(
+      "https://api.themoviedb.org/3/trending/tv/day?language=en-US",
+      API_OPTIONS
+    );
+    let jsonData = await tvData.json();
+    dispatch(addTrendingTV(jsonData?.results));
+  };
+
+  useEffect(() => {
+    trendTv();
+  }, []);
+};
+
+export const useTopRatedTv = () => {
+  const dispatch = useDispatch();
+
+  const topRatedData = async () => {
+    const fetchtopratedtv = await fetch(
+      "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
+      API_OPTIONS
+    );
+    const jsonData = await fetchtopratedtv.json();
+    dispatch(addTopRatedTV(jsonData?.results));
+  };
+
+  useEffect(() => {
+    topRatedData();
   }, []);
 };

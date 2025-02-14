@@ -6,9 +6,9 @@ const MovieCards = ({ movies }) => {
     <div className="flex overflow-x-scroll hide-scrollbar">
       {movies?.map((movie) => {
         return (
-          <div key={movie.id} className="w-24 mr-4 flex-shrink-0">
+          <div key={movie.id} className="w-48 mr-4 flex-shrink-0">
             <img
-              className="rounded-lg"
+              className="rounded-md"
               alt="movie-card"
               src={`${IMG_CDN}${movie?.poster_path}`}
             />
