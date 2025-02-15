@@ -10,28 +10,29 @@ import {
 } from "../hooks/useMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import GPTSearch from "./GPTSearch/GPTSearch";
+import { useSelector } from "react-redux";
 
 const Browse = () => {
+  const gptToggle = useSelector((store) => store.gpttoggle?.gptSearch);
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
   useUpComingMovies();
   useTrendingTv();
   useTopRatedTv();
-  
+
   return (
     <div className="overflow-x-scroll hide-scrollbar">
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
-      {/* 
-          MainContainer
-            - VideoBackground
-            - VideoTitle
-          SecondaryContainer
-            - MovieList * n
-              - cards * n
-      */}
+      {gptToggle ? (
+        <GPTSearch />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />{" "}
+        </>
+      )}
     </div>
   );
 };
