@@ -38,8 +38,6 @@ const Header = () => {
         navigate("/");
       }
     });
-
-    // Unsubscribe when component unmounts
     return () => unsubscribe();
   }, [dispatch, navigate]);
 
@@ -48,10 +46,8 @@ const Header = () => {
   };
 
   const handleChange = (e) => {
-    let selected = e.target.value;
-    console.log(selected)
-    dispatch(changeLanguage())
-  }
+    dispatch(changeLanguage(e.target.value));
+  };
 
   const gptFlag = useSelector((store) => store.gpttoggle?.gptSearch);
   return (
@@ -61,8 +57,10 @@ const Header = () => {
         <div className="flex p-2">
           {gptFlag && (
             <span className="pt-4 mr-4">
-              <select className="p-2 bg-gray-900 text-white"
-              onChange={handleChange}>
+              <select
+                className="p-2 bg-gray-900 text-white"
+                onChange={handleChange}
+              >
                 {SUPPORTED_LANGUAGES.map((lang) => (
                   <option key={lang.identifier} value={lang.identifier}>
                     {lang.name}
@@ -76,7 +74,7 @@ const Header = () => {
               className="bg-red-600 text-white px-4 py-2 m-2 rounded-md"
               onClick={handleGPTClick}
             >
-              GPT Search
+              {!gptFlag ? "GPT Search" : "Home Page"}
             </button>
           </span>
           <img

@@ -55,7 +55,7 @@ React Strict mode issues:
   -> Problem: In development mode, React Strict Mode intentionally calls useEffect() twice to detect side effects that are not properly cleaned up.
   -> Fix: Remove React.StrictMode in index.js (only for debugging).
 
-
+If you're facing an issue like payload getting repeated then possible issue might be the reducer imported in appStore is wrong.
 
 
 
