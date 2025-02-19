@@ -11,3 +11,9 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+@layer utilities {
+  .debug-outline * {
+    @apply outline outline-1 outline-red-500;
+  }
+}

@@ -14,7 +14,7 @@ import GPTSearch from "./GPTSearch/GPTSearch";
 import { useSelector } from "react-redux";
 
 const Browse = () => {
-  const gptToggle = useSelector((store) => store.gpttoggle?.gptSearch);
+  const gptToggle = useSelector((store) => store.gpt?.gptSearch);
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
@@ -23,7 +23,7 @@ const Browse = () => {
   useTopRatedTv();
 
   return (
-    <div className="overflow-x-scroll hide-scrollbar">
+    <div className="m-0 p-0 overflow-x-hidden w-[100%]">
       <Header />
       {gptToggle ? (
         <GPTSearch />

@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
 import {
   addNowPlayingMovies,
   addPopularMovies,
-  addRatedMovies,
   addTopRatedTV,
   addTrendingMovies,
   addTrendingTV,
@@ -14,6 +13,9 @@ import {
 export const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
   // Fetch Data from TMDB API and update store
+  const nowPlayingMovies = useSelector(
+    (store) => store.movies.nowPlayingMovies
+  );
   const getNowPlayingMovies = async () => {
     const data = await fetch(
       "https://api.themoviedb.org/3/movie/now_playing?page=1",
@@ -24,12 +26,13 @@ export const useNowPlayingMovies = () => {
   };
 
   useEffect(() => {
-    getNowPlayingMovies();
+    !nowPlayingMovies && getNowPlayingMovies();
   }, []);
 };
 
 export const usePopularMovies = () => {
   const dispatch = useDispatch();
+  const popularMoviesData = useSelector((store) => store.movies.popularMovies);
   const popularMovies = async () => {
     let data = await fetch(
       "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
@@ -40,12 +43,13 @@ export const usePopularMovies = () => {
   };
 
   useEffect(() => {
-    popularMovies();
+    !popularMoviesData && popularMovies();
   }, []);
 };
 
 export const useTopRatedMovies = () => {
   const dispatch = useDispatch();
+  const topMovies = useSelector((store) => store.movies.topRatedTv);
 
   const toprated = async () => {
     const data = await fetch(
@@ -57,13 +61,13 @@ export const useTopRatedMovies = () => {
   };
 
   useEffect(() => {
-    toprated();
+    !topMovies && toprated();
   }, []);
 };
 
 export const useUpComingMovies = () => {
   const dispatch = useDispatch();
-
+  const upcomingMovies = useSelector((store) => store.movies.upcomingMovies);
   const upcoming = async () => {
     const data = await fetch(
       "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
@@ -74,12 +78,13 @@ export const useUpComingMovies = () => {
   };
 
   useEffect(() => {
-    upcoming();
+    !upcomingMovies && upcoming();
   }, []);
 };
 
 export const useTrendingTv = () => {
   const dispatch = useDispatch();
+  const tvTrend = useSelector((store) => store.movies.trendingTv);
   const trendTv = async () => {
     let tvData = await fetch(
       "https://api.themoviedb.org/3/trending/tv/day?language=en-US",
@@ -90,13 +95,13 @@ export const useTrendingTv = () => {
   };
 
   useEffect(() => {
-    trendTv();
+    !tvTrend && trendTv();
   }, []);
 };
 
 export const useTopRatedTv = () => {
   const dispatch = useDispatch();
-
+  const topData = useSelector((store) => store.movies.topRatedTv);
   const topRatedData = async () => {
     const fetchtopratedtv = await fetch(
       "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
@@ -107,6 +112,6 @@ export const useTopRatedTv = () => {
   };
 
   useEffect(() => {
-    topRatedData();
+    !topData && topRatedData();
   }, []);
 };

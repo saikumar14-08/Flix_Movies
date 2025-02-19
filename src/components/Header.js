@@ -49,16 +49,16 @@ const Header = () => {
     dispatch(changeLanguage(e.target.value));
   };
 
-  const gptFlag = useSelector((store) => store.gpttoggle?.gptSearch);
+  const gptFlag = useSelector((store) => store.gpt?.gptSearch);
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-44" src={LOGO} alt="logo" />
+    <div className="absolute w-[100%] px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
+      <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
       {user && (
-        <div className="flex p-2">
+        <div className="flex p-2 justify-between align-center">
           {gptFlag && (
-            <span className="pt-4 mr-4">
+            <span className=" mr-4">
               <select
-                className="p-2 bg-gray-900 text-white"
+                className="p-2 rounded-lg m-2 bg-gray-900 text-white"
                 onChange={handleChange}
               >
                 {SUPPORTED_LANGUAGES.map((lang) => (
@@ -71,7 +71,7 @@ const Header = () => {
           )}
           <span>
             <button
-              className="bg-red-600 text-white px-4 py-2 m-2 rounded-md"
+              className="bg-red-600 text-white px-4 mt-2 py-2 mr-6 rounded-md"
               onClick={handleGPTClick}
             >
               {!gptFlag ? "GPT Search" : "Home Page"}
