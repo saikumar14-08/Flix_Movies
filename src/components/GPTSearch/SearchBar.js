@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { client } from "../../utils/gptSetup";
 import { API_OPTIONS } from "../../utils/constants";
 import { gptMovies } from "../../utils/gptSlice";
+import { HiSearch } from "react-icons/hi";
 
 const fetchMovies = async (movie) => {
   let searchMovie = await fetch(
@@ -44,22 +45,29 @@ const SearchBar = () => {
     dispatch(gptMovies({ gptMoviesNames: movieArr, tmdbMovieRes: fetchData }));
   };
   return (
-    <div className="pt-[35%] md:pt-[10%] flex justify-center">
+    <div className="pt-[20%] sm:pt-[25%] flex justify-center">
       <form
-        className="w-full md:w-1/2 bg-black grid grid-cols-12"
+        className="w-[90%] sm:w-3/4 md:w-1/2 bg-black flex items-center p-2 rounded-lg"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
-          className="col-span-9 p-4 m-4 rounded-md"
+          className="flex-grow p-2 sm:p-4 rounded-md text-sm sm:text-base"
           type="text"
           placeholder={lang[langSelected].gptSearchPlaceHolder}
           ref={pmtTxt}
         />
+
+        {/* Search Button (Icon for Mobile, Text for Larger Screens) */}
         <button
-          className="col-span-3 m-4 py-2 px-4 bg-red-700 text-white rounded-lg"
+          className="ml-2 bg-red-700 text-white p-2 sm:px-4 sm:py-2 rounded-lg flex items-center justify-center"
           onClick={handleSearch}
         >
-          {lang[langSelected].search}
+          <HiSearch className="text-xl sm:hidden" />{" "}
+          {/* Search Icon for Mobile */}
+          <span className="hidden sm:inline">
+            {lang[langSelected].search}
+          </span>{" "}
+          {/* Text for Larger Screens */}
         </button>
       </form>
     </div>

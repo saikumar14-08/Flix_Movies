@@ -29,7 +29,7 @@ const MovieCards = ({ movies }) => {
           movie?.poster_path && (
             <div
               key={movie.id}
-              className="w-48 mr-4 flex-shrink-0 relative group"
+              className="w-24 mr-4 flex-shrink-0 relative group sm:w-32 md:32"
               onMouseEnter={() => {
                 setHoveredMovie(movie.id);
                 fetchTrailer(movie.id);
