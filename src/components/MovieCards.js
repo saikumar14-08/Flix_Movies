@@ -66,7 +66,7 @@ const MovieCards = ({ movies }) => {
 
               {/* Movie Title Overlay */}
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-lg m-4 font-bold">
+                <p className="md:text-lg text-white text-xs m-4 font-bold">
                   {movie?.title || "Movie Title"}
                 </p>
               </div>

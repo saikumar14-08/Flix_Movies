@@ -6,7 +6,7 @@ import { LOGIN_BG } from "../../utils/constants";
 const GPTSearch = () => {
   return (
     <>
-      <div className="fixed -z-10">
+      <div className="fixed w-full -z-10">
         <img
           src={LOGIN_BG}
           className="h-screen w-full object-cover"

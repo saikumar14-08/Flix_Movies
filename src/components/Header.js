@@ -1,18 +1,20 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { LOGO, SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constants";
+import { SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constants";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
 import { toggleGPTSearch } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
 import { HiMenu, HiX } from "react-icons/hi";
+import FlixGPTLogo from "../utils/flixGPT.svg";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const menuRef = useRef(null);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {})
@@ -53,12 +55,33 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const gptFlag = useSelector((store) => store.gpt?.gptSearch);
-  return (
-    <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between items-center">
-      <img className="w-44" src={LOGO} alt="logo" />
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+  return (
+    <div className="relative bg-[#1F1F1F] w-full px-8 py-2  z-999 flex justify-between items-center">
+      <img
+        src={FlixGPTLogo}
+        alt="FlixGPT Logo"
+        className="w-40 brightness-150"
+      />
       {user && (
-        <div className="relative">
+        <div className="relative z-[9999]">
           <button
             className="md:hidden text-white text-3xl"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -66,7 +89,10 @@ const Header = () => {
             {menuOpen ? <HiX /> : <HiMenu />}
           </button>
           {menuOpen && (
-            <div className="absolute z-10 right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg p-4">
+            <div
+              ref={menuRef}
+              className="absolute z-[9999] right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg p-4"
+            >
               <span className="text-white block font-bold text-center mb-2">
                 Hi, {user.displayName} 🙋‍♂️
               </span>
@@ -87,7 +113,6 @@ const Header = () => {
         </div>
       )}
 
-      {/* Desktop View - Full Navigation */}
       {user && (
         <div className="hidden md:flex items-center space-x-6">
           {gptFlag && (
@@ -104,13 +129,14 @@ const Header = () => {
           )}
 
           <button
-            className="bg-red-600 text-white px-4 py-2 rounded-md"
-            onClick={handleGPTClick}
+            className="relative z-[9999] bg-red-600 text-white px-4 py-2 rounded-md pointer-events-auto"
+            onClick={() => {
+              console.log("GPT Search Button Clicked!");
+              handleGPTClick();
+            }}
           >
             {!gptFlag ? "GPT Search" : "Home Page"}
           </button>
-
-          {/* User Info */}
           <div className="flex items-center">
             <img
               className="w-12 h-12 rounded-lg"

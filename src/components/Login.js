@@ -118,56 +118,70 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="absolute">
-        <img src={LOGIN_BG} alt="login form bg" />
-      </div>
-
-      <form
-        onClick={(e) => e.preventDefault()}
-        className="absolute w-96 z-10 items-center bg-black bg-opacity-80 p-12 my-36 ml-96 rounded-lg text-white"
-      >
-        <div className=" text-3xl font-bold text-white p-3">
-          {isSignInForm ? "Sign in" : "Sign up"}
-        </div>
-        {!isSignInForm && (
-          <input
-            className="p-2 m-2 w-full block bg-gray-800 border border-gray-600 rounded"
-            type="text"
-            placeholder="Full Name"
-            ref={fullName}
+    <>
+      <div className="relative h-screen">
+        <Header className="absolute top-0 left-0 w-full z-20" />
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src={LOGIN_BG}
+            alt="login form bg"
+            className="w-full h-full object-cover"
           />
-        )}
-        <input
-          className="p-2 m-2 w-full block bg-gray-800 border border-gray-600 rounded"
-          type="text"
-          placeholder="Email or Mobile Number"
-          ref={email}
-        />
-        <input
-          className="p-2 m-2 w-full block bg-gray-800 border border-gray-600 rounded"
-          type="password"
-          placeholder="Password"
-          ref={password}
-        />
-        <p className="text-red-700 font-bold px-2">{errorMessage}</p>
-        <button
-          onClick={isSignInForm ? handleSignIn : handleSignUp}
-          className="p-2 ml-2 mt-4 w-full bg-red-600 text-white rounded"
-        >
-          {isSignInForm ? "Sign In" : "Sign up"}
-        </button>
-        <div className="pl-2 py-4">
-          <span className="font-bold cursor-pointer" onClick={toggleSignInForm}>
-            {!isSignInForm
-              ? "Already existing user? Sign in now"
-              : "New to Netflix? Sign up now"}
-            .
-          </span>
         </div>
-      </form>
-    </div>
+
+        <div className="relative flex justify-center items-center h-full z-10">
+          <form
+            onClick={(e) => e.preventDefault()}
+            className="w-[90%] sm:w-[80%] md:w-[50%] lg:w-[30%] max-w-md bg-black bg-opacity-80 p-8 sm:p-12 rounded-lg text-white shadow-lg"
+          >
+            <div className="text-3xl font-bold text-white text-center pb-4">
+              {isSignInForm ? "Sign in" : "Sign up"}
+            </div>
+
+            {!isSignInForm && (
+              <input
+                className="p-2 m-2 w-full bg-gray-800 border border-gray-600 rounded"
+                type="text"
+                placeholder="Full Name"
+                ref={fullName}
+              />
+            )}
+            <input
+              className="p-2 m-2 w-full bg-gray-800 border border-gray-600 rounded"
+              type="text"
+              placeholder="Email or Mobile Number"
+              ref={email}
+            />
+            <input
+              className="p-2 m-2 w-full bg-gray-800 border border-gray-600 rounded"
+              type="password"
+              placeholder="Password"
+              ref={password}
+            />
+            <p className="text-red-700 font-bold px-2">{errorMessage}</p>
+
+            <button
+              onClick={isSignInForm ? handleSignIn : handleSignUp}
+              className="p-2 mt-4 w-full bg-red-600 text-white rounded"
+            >
+              {isSignInForm ? "Sign In" : "Sign up"}
+            </button>
+
+            <div className="text-center pt-4">
+              <span
+                className="font-bold cursor-pointer"
+                onClick={toggleSignInForm}
+              >
+                {!isSignInForm
+                  ? "Already an existing user? Sign in now"
+                  : "New to Netflix? Sign up now"}
+                .
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
   );
 };
 
