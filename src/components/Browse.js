@@ -1,17 +1,16 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import Header from "./Header";
-import {
-  useNowPlayingMovies,
-  usePopularMovies,
-  useTopRatedMovies,
-  useTopRatedTv,
-  useTrendingTv,
-  useUpComingMovies,
-} from "../hooks/useMovies";
+import { useNowPlayingMovies } from "../hooks/useNowPlayingMovies";
+import { usePopularMovies } from "../hooks/usePopularMovies";
+import { useTopRatedMovies } from "../hooks/useTopRatedMovies";
+import { useTopRatedTv } from "../hooks/useTopRatedTv";
+import { useTrendingTv } from "../hooks/useTrendingTv";
+import { useUpComingMovies } from "../hooks/useUpComingMovies";
 import MainContainer from "./MainContainer";
-import SecondaryContainer from "./SecondaryContainer";
 import GPTSearch from "./GPTSearch/GPTSearch";
 import { useSelector } from "react-redux";
+
+const SecondaryContainer = lazy(() => import("./SecondaryContainer"));
 
 const Browse = () => {
   const gptToggle = useSelector((store) => store.gpt?.gptSearch);
@@ -24,13 +23,17 @@ const Browse = () => {
 
   return (
     <div className="m-0 p-0 overflow-x-hidden w-[100%]">
+      {console.log("This is Browse page")}
+      
       <Header />
       {gptToggle ? (
         <GPTSearch />
       ) : (
         <>
           <MainContainer />
-          <SecondaryContainer />{" "}
+          <Suspense fallback={<div>Loading Secondary Container...</div>}>
+            <SecondaryContainer />
+          </Suspense>
         </>
       )}
     </div>
