@@ -6,17 +6,18 @@ import { addTrendingTV } from "../utils/moviesSlice";
 export const useTrendingTv = () => {
   const dispatch = useDispatch();
   const tvTrend = useSelector((store) => store.movies.trendingTv);
-  const trendTv = async () => {
-    console.log("useTredingTv");
-    let tvData = await fetch(
-      "https://api.themoviedb.org/3/trending/tv/day?language=en-US",
-      API_OPTIONS
-    );
-    let jsonData = await tvData.json();
-    dispatch(addTrendingTV(jsonData?.results));
-  };
 
   useEffect(() => {
+    const trendTv = async () => {
+      console.log("useTredingTv");
+      let tvData = await fetch(
+        "https://api.themoviedb.org/3/trending/tv/day?language=en-US",
+        API_OPTIONS
+      );
+      let jsonData = await tvData.json();
+      dispatch(addTrendingTV(jsonData?.results));
+    };
+
     !tvTrend && trendTv();
-  }, [tvTrend]);
+  }, [tvTrend, dispatch]);
 };

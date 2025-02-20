@@ -6,17 +6,18 @@ import { addTopRatedTV } from "../utils/moviesSlice";
 export const useTopRatedTv = () => {
   const dispatch = useDispatch();
   const topData = useSelector((store) => store.movies.topRatedTv);
-  const topRatedData = async () => {
-    console.log("useTopRatedTV");
-    const fetchtopratedtv = await fetch(
-      "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
-      API_OPTIONS
-    );
-    const jsonData = await fetchtopratedtv.json();
-    dispatch(addTopRatedTV(jsonData?.results));
-  };
 
   useEffect(() => {
+    const topRatedData = async () => {
+      console.log("useTopRatedTV");
+      const fetchtopratedtv = await fetch(
+        "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
+        API_OPTIONS
+      );
+      const jsonData = await fetchtopratedtv.json();
+      dispatch(addTopRatedTV(jsonData?.results));
+    };
+
     !topData && topRatedData();
-  }, [topData]);
+  }, [topData,dispatch]);
 };
