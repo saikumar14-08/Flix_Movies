@@ -9,7 +9,6 @@ export const useTrendingTv = () => {
 
   useEffect(() => {
     const trendTv = async () => {
-      console.log("useTredingTv");
       let tvData = await fetch(
         "https://api.themoviedb.org/3/trending/tv/day?language=en-US",
         API_OPTIONS

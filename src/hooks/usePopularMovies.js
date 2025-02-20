@@ -9,7 +9,6 @@ export const usePopularMovies = () => {
 
   useEffect(() => {
     const popularMovies = async () => {
-      console.log("usePopularMovies");
       let data = await fetch(
         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
         API_OPTIONS
@@ -18,5 +17,5 @@ export const usePopularMovies = () => {
       dispatch(addPopularMovies(json.results));
     };
     !popularMoviesData && popularMovies();
-  }, [popularMoviesData,dispatch]);
+  }, [popularMoviesData, dispatch]);
 };

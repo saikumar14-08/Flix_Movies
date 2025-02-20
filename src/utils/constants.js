@@ -19,8 +19,20 @@ export const IMG_CDN = "https://image.tmdb.org/t/p/w300/";
 
 export const SUPPORTED_LANGUAGES = [
   { identifier: "en", name: "English" },
-  { identifier: "hindi", name: "Hindi" },
-  { identifier: "spanish", name: "Spanish" },
+  { identifier: "hi", name: "Hindi" },
+  { identifier: "es", name: "Spanish" },
+  { identifier: "te", name: "Telugu" },
+  { identifier: "ta", name: "Tamil" },
+  { identifier: "bn", name: "Bengali" },
+  { identifier: "mr", name: "Marathi" },
+  { identifier: "gu", name: "Gujarati" },
+  { identifier: "kn", name: "Kannada" },
+  { identifier: "ml", name: "Malayalam" },
+  { identifier: "fr", name: "French" },
+  { identifier: "de", name: "German" },
+  { identifier: "zh", name: "Chinese" },
+  { identifier: "ja", name: "Japanese" },
+  { identifier: "ko", name: "Korean" },
 ];
 
 export const GPT_KEY = process.env.REACT_APP_GPT_KEY;

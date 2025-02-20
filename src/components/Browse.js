@@ -23,8 +23,6 @@ const Browse = () => {
 
   return (
     <div className="m-0 p-0 overflow-x-hidden w-[100%]">
-      {console.log("This is Browse page")}
-      
       <Header />
       {gptToggle ? (
         <GPTSearch />

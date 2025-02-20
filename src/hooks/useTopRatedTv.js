@@ -9,7 +9,6 @@ export const useTopRatedTv = () => {
 
   useEffect(() => {
     const topRatedData = async () => {
-      console.log("useTopRatedTV");
       const fetchtopratedtv = await fetch(
         "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
         API_OPTIONS
@@ -19,5 +18,5 @@ export const useTopRatedTv = () => {
     };
 
     !topData && topRatedData();
-  }, [topData,dispatch]);
+  }, [topData, dispatch]);
 };

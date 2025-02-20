@@ -9,11 +9,13 @@ import { toggleGPTSearch } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
 import { HiMenu, HiX } from "react-icons/hi";
 import FlixGPTLogo from "../utils/flixGPT.svg";
+import lang from "../utils/languageConstants";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const langSelected = useSelector((store) => store.config?.language);
   const menuRef = useRef(null);
   const handleSignOut = () => {
     signOut(auth)
@@ -94,19 +96,19 @@ const Header = () => {
               className="absolute z-[9999] right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg p-4"
             >
               <span className="text-white block font-bold text-center mb-2">
-                Hi, {user.displayName} 🙋‍♂️
+                {lang[langSelected].hi + user.displayName} 🙋‍♂️
               </span>
               <button
                 className="w-full bg-red-600 text-white my-4 py-2 rounded-md"
                 onClick={handleGPTClick}
               >
-                {!gptFlag ? "GPT Search" : "Home Page"}
+                {!gptFlag ? "GPT Search" : lang[langSelected].homePage}
               </button>
               <button
                 onClick={handleSignOut}
                 className="w-full bg-red-600 text-white py-2 rounded-md"
               >
-                Sign Out
+                {lang[langSelected].signOut}
               </button>
             </div>
           )}
@@ -131,11 +133,10 @@ const Header = () => {
           <button
             className="relative z-[9999] bg-red-600 text-white px-4 py-2 rounded-md pointer-events-auto"
             onClick={() => {
-              console.log("GPT Search Button Clicked!");
               handleGPTClick();
             }}
           >
-            {!gptFlag ? "GPT Search" : "Home Page"}
+            {!gptFlag ? "GPT Search" : lang[langSelected].homePage}
           </button>
           <div className="flex items-center">
             <img
@@ -144,13 +145,13 @@ const Header = () => {
               alt="usericon"
             />
             <span className="text-white p-4 font-bold">
-              Hi, {user ? user.displayName : "User"} 🙋‍♂️
+              {lang[langSelected].hi + user.displayName} 🙋‍♂️
             </span>
           </div>
 
           {/* Sign Out Button */}
           <button onClick={handleSignOut} className="font-bold text-white">
-            (Sign Out)
+            {lang[langSelected].signOut}
           </button>
         </div>
       )}
