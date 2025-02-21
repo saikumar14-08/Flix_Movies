@@ -98,6 +98,16 @@ const Header = () => {
               <span className="text-white block font-bold text-center mb-2">
                 {lang[langSelected].hi + user.displayName} 🙋‍♂️
               </span>
+              <select
+                className="p-2 rounded-lg bg-gray-900 text-white"
+                onChange={handleChange}
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.identifier} value={lang.identifier}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
               <button
                 className="w-full bg-red-600 text-white my-4 py-2 rounded-md"
                 onClick={handleGPTClick}
@@ -150,7 +160,10 @@ const Header = () => {
           </div>
 
           {/* Sign Out Button */}
-          <button onClick={handleSignOut} className="font-bold text-white">
+          <button
+            onClick={handleSignOut}
+            className="relative z-[9999] bg-red-600 text-white px-4 py-2 rounded-md pointer-events-auto"
+          >
             {lang[langSelected].signOut}
           </button>
         </div>

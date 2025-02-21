@@ -1,9 +1,10 @@
-import React from "react";
-import GptMovieSuggestions from "./GptMovieSuggestions";
-import SearchBar from "./SearchBar";
+import React, { lazy, Suspense } from "react";
 import { LOGIN_BG } from "../../utils/constants";
 
-const GPTSearch = () => {
+const SearchBar = lazy(() => import("./SearchBar"));
+const GptMovieSuggestions = lazy(() => import("./GptMovieSuggestions"));
+
+export const GPTSearch = () => {
   return (
     <>
       <div className="fixed w-full -z-10">
@@ -14,11 +15,11 @@ const GPTSearch = () => {
         />
       </div>
       <div>
-        <SearchBar />
-        <GptMovieSuggestions />
+        <Suspense fallback="GPT Page">
+          <SearchBar />
+          <GptMovieSuggestions />
+        </Suspense>
       </div>
     </>
   );
 };
-
-export default GPTSearch;

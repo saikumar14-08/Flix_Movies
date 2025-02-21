@@ -1,7 +1,8 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
-import MoviesList from "../MoviesList";
 import lang from "../../utils/languageConstants";
+
+const MoviesList = lazy(() => import("../MoviesList"));
 
 const GptMovieSuggestions = () => {
   const langSelected = useSelector((store) => store.config?.language);
@@ -11,7 +12,13 @@ const GptMovieSuggestions = () => {
     <div className="bg-black bg-opacity-90 overflow-hidden text-white max-w-[95%] mx-auto my-4 text-center rounded-md">
       <h2>{lang[langSelected].topMovieSuggestions}</h2>
       {gptMoviesNames?.map((gptmovie, index) => (
-        <MoviesList key={index} title={gptmovie} movies={tmdbMovieRes[index]} />
+        <Suspense fallback="GPT Movies suggestions">
+          <MoviesList
+            key={index}
+            title={gptmovie}
+            movies={tmdbMovieRes[index]}
+          />
+        </Suspense>
       ))}
     </div>
   );
